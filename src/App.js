@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import { RecoilRoot } from 'recoil';
+import { Canvas } from '@react-three/fiber';
+import { PrimaryScene } from './scenes/PrimaryScene';
+import { InputManager } from './components/InputManager';
+import { UI } from './components/ui';
+import { StatsPanel } from './components/StatsPanel';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RecoilRoot>
+      <div className="App">
+        <UI />
+        <Canvas>
+          <StatsPanel />
+          <InputManager />
+          <pointLight position={[1.1, 2.2, 4.4]} />
+          <pointLight position={[-1, -2, -4]} />
+          <ambientLight intensity={0.1} />
+          <perspectiveCamera
+            fov={75}
+            aspect={window.innerWidth / window.innerHeight}
+            near={0.6}
+            far={120}
+            position={[0, 0, 5]}
+          />
+          <PrimaryScene />
+        </Canvas>
+      </div>
+    </RecoilRoot>
   );
-}
+};
 
 export default App;
